@@ -39,7 +39,7 @@ public class Ad {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle() {
         this.title = title;
     }
 
@@ -47,7 +47,7 @@ public class Ad {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription() {
         this.description = description;
     }
 }
