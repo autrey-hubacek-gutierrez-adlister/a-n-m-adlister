@@ -27,13 +27,11 @@ public class EditUserServlets extends HttpServlet {
         String newUsername = req.getParameter("newUsername");
         String newEmail = req.getParameter("newEmail");
         String newPassword = req.getParameter("newPassword");
-        String newPasswordConfirmation = req.getParameter("newConfirm_password");
 
         /* validate input */
         boolean inputHasErrors = newUsername.isEmpty()
                 || newEmail.isEmpty()
-                || newPassword.isEmpty()
-                || (! newPassword.equals(newPasswordConfirmation));
+                || newPassword.isEmpty();
 
         if (inputHasErrors) {
             resp.sendRedirect("/editUser");
