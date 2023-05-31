@@ -1,12 +1,11 @@
 package com.codeup.adlister.controllers;
 
+import com.codeup.adlister.models.SearchResult;
+
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,57 +16,113 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "SearchServlet", urlPatterns = "/search")
 public class SearchServlet extends HttpServlet {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/adlister_db";
-    private static final String DB_USERNAME = "username";
-    private static final String DB_PASSWORD = "password";
+    private static final String DB_USERNAME = "root";
+    private static final String DB_PASSWORD = "codeup";
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String searchQuery = request.getParameter("q");
+        String searchQuery = request.getParameter("search");
+        String category = request.getParameter("category");
+        boolean showAll = Boolean.parseBoolean(request.getParameter("showAll"));
 
-        String searchResult = performSearch(searchQuery);
+        List<SearchResult> searchResults = new ArrayList<>();
+        if (showAll) {
+            searchResults = getAllAds();
+        } else if (category != null && !category.isEmpty()) {
+            searchResults = performSearchByCategory(category);
+        } else if (searchQuery != null && !searchQuery.isEmpty()) {
+            searchResults = performSearch(searchQuery);
+        }
 
-        PrintWriter out = response.getWriter();
-        out.println("<html><body>");
-        out.println("<h2>Search Result:</h2>");
-        out.println("<p>" + searchResult + "</p>");
-        out.println("</body></html>");
+        request.setAttribute("searchResults", searchResults);
+        request.getRequestDispatcher("/results.jsp").forward(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        String searchQuery = request.getParameter("q");
-
-        String searchResult = performSearch(searchQuery);
-
-        response.sendRedirect("/search?q=" + searchQuery);
-    }
-
-    private String performSearch(String searchQuery) {
+    private List<SearchResult> performSearch(String searchQuery) {
+        List<SearchResult> searchResults = new ArrayList<>();
         try {
+            Class.forName("com.mysql.jdbc.Driver");
             Connection conn = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
 
-            String sql = "SELECT * FROM items WHERE name LIKE ?";
+            String sql = "SELECT id, title, description, category FROM ads WHERE title LIKE ?";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, "%" + searchQuery + "%");
 
             ResultSet resultSet = statement.executeQuery();
 
-            StringBuilder result = new StringBuilder();
             while (resultSet.next()) {
                 int itemId = resultSet.getInt("id");
-                String itemName = resultSet.getString("name");
-                result.append("Item ID: ").append(itemId).append(", Name: ").append(itemName).append("<br>");
+                String itemName = resultSet.getString("title");
+                String itemDescription = resultSet.getString("description");
+                String itemCategory = resultSet.getString("category");
+                SearchResult searchResult = new SearchResult(itemId, itemName, itemDescription, itemCategory);
+                searchResults.add(searchResult);
             }
 
             resultSet.close();
             statement.close();
             conn.close();
-
-            return result.toString();
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
-            return "An error occurred while performing the search.";
         }
+        return searchResults;
+    }
+
+    private List<SearchResult> performSearchByCategory(String category) {
+        List<SearchResult> searchResults = new ArrayList<>();
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
+
+            String sql = "SELECT id, title, description, category FROM ads WHERE category = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, category);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                int itemId = resultSet.getInt("id");
+                String itemName = resultSet.getString("title");
+                String itemDescription = resultSet.getString("description");
+                SearchResult searchResult = new SearchResult(itemId, itemName, itemDescription, category);
+                searchResults.add(searchResult);
+            }
+
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+        return searchResults;
+    }
+
+    private List<SearchResult> getAllAds() {
+        List<SearchResult> searchResults = new ArrayList<>();
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
+
+            String sql = "SELECT id, title, description, category FROM ads";
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                int itemId = resultSet.getInt("id");
+                String itemName = resultSet.getString("title");
+                String itemDescription = resultSet.getString("description");
+                String itemCategory = resultSet.getString("category");
+                SearchResult searchResult = new SearchResult(itemId, itemName, itemDescription, itemCategory);
+                searchResults.add(searchResult);
+            }
+
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+        return searchResults;
     }
 }
