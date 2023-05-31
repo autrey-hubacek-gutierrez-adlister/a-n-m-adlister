@@ -88,23 +88,25 @@ public class MySQLAdsDao implements Ads {
     }
 
 
-   public Ad getAdById(adId){
-       try {
+    public Ad getAdById(long adId) {
+        try {
+            String query = "SELECT * FROM ads WHERE id = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setLong(1, adId);
+            ResultSet resultSet = statement.executeQuery();
 
+            if (resultSet.next()) {
+                String title = resultSet.getString("title");
+                String description = resultSet.getString("description");
 
-           String insertQuery = "SELECT * ads WHERE id = ?";
-           PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
-           stmt.setString(1, ad.getTitle());
-           stmt.setString(2, ad.getDescription());
-           stmt.setString(3, String.valueOf(adId));
-           stmt.executeUpdate();
-           ResultSet rs = stmt.getGeneratedKeys();
-           rs.next();
-           rs.getLong(1);
-       } catch (SQLException e) {
-           throw new RuntimeException("Error editing ad.", e);
-       }
-   }
+                return new Ad(adId, title, description);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 
     private Ad extractAd(ResultSet rs) throws SQLException {
         return new Ad(
