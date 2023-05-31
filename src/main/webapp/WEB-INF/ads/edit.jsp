@@ -11,7 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-<title>Title</title>
 <div class="container">
     <h1>Create a new Ad</h1>
     <form action="/edit" method="post">

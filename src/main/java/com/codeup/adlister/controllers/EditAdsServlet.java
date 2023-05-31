@@ -1,20 +1,23 @@
 package com.codeup.adlister.controllers;
 
 
+import com.codeup.adlister.dao.Ads;
 import com.codeup.adlister.dao.DaoFactory;
+import com.codeup.adlister.models.Ad;
 import com.codeup.adlister.models.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
 @WebServlet(name = "controllers.EditAdsServlet", urlPatterns = "/edit")
-public class EditAdsServlet {
+public class EditAdsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if(req.getSession().getAttribute("user") == null) {
+        if (req.getSession().getAttribute("user") == null) {
             resp.sendRedirect("/login");
             // add a return statement to exit out of the entire method.
             return;
@@ -26,13 +29,12 @@ public class EditAdsServlet {
 
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException {
-        User loggedInUser = (User) req.getSession().getAttribute("user");
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String title = req.getParameter("title");
         String description = req.getParameter("description");
-        String oldTitle = DaoFactory.getUsersDao().
 
-        DaoFactory.getAdsDao().editAds(Integer.parseInt(req.getParameter("id").);
+        DaoFactory.getAdsDao().editAds((long) Integer.parseInt(req.getParameter("editAdId")),(Ad) req.getAttribute("var"));
+
     }
 
 }
