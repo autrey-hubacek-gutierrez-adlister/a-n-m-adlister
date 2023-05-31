@@ -8,6 +8,8 @@
             <li><a href="/login">Login</a></li>
             <li><a href="/logout">Logout</a></li>
             <li><a href="/editUser">Edit</a></li>
+            <li><a href="/search.jsp">Search</a></li> <!-- Add this line -->
+
         </ul>
     </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

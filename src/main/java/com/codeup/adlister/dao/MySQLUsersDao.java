@@ -17,7 +17,7 @@ public class MySQLUsersDao implements Users {
                 config.getPassword()
             );
         } catch (SQLException e) {
-            throw new RuntimeException("Error connecting to the database!", e);
+            throw new RuntimeException("Error connecting to the database!");
         }
     }
 
@@ -47,7 +47,7 @@ public class MySQLUsersDao implements Users {
             rs.next();
             return rs.getLong(1);
         } catch (SQLException e) {
-            throw new RuntimeException("Error creating new user", e);
+            throw new RuntimeException("Error creating new user");
         }
     }
 
