@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <jsp:include page="partials/head.jsp">
@@ -8,7 +9,7 @@
 <body>
 <jsp:include page="partials/navbar.jsp" />
 <div class="container">
-    <h1>Please fill in your new information</h1>
+    <h1>Please fill in your new information.</h1>
     <form action="/editUser" method="post">
         <div class="form-group">
             <label for="username">Username</label>
@@ -21,6 +22,10 @@
         <div class="form-group">
             <label for="password">Password</label>
             <input id="password" name="password" class="form-control" type="password">
+        </div>
+        <div class="form-group">
+            <label for="confirm_password">Confirm Password</label>
+            <input id="confirm_password" name="confirm_password" class="form-control" type="password">
         </div>
         <input type="submit" class="btn btn-primary btn-block">
     </form>

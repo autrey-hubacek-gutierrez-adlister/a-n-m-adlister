@@ -24,30 +24,31 @@ public class EditUserServlets extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String newUsername = req.getParameter("newUsername");
-        String newEmail = req.getParameter("newEmail");
-        String newPassword = req.getParameter("newPassword");
+        long userId = Long.parseLong(req.getParameter("userId"));
+        String username = req.getParameter("username");
+        String email = req.getParameter("email");
+        String password = req.getParameter("password");
+        String passwordConfirmation = req.getParameter("confirmPassword");
+
 
         /* validate input */
-        boolean inputHasErrors = newUsername.isEmpty()
-                || newEmail.isEmpty()
-                || newPassword.isEmpty();
+        boolean inputHasErrors = username.isEmpty()
+                || email.isEmpty();
 
         if (inputHasErrors) {
             resp.sendRedirect("/editUser");
             return;
         }
+        User user;
+        if(password.isEmpty() || (! password.equals(passwordConfirmation))){
+            user = new User(username, email, password);
+        }else {
+            user = new User(username, email, password);
+        }
 
-        // create and save a new user
-        User user = new User(newUsername, newEmail, newPassword);
-
-        // hash the password
-
-        String hash = Password.hash(user.getPassword());
-
-        user.setPassword(hash);
-
-        DaoFactory.getUsersDao().insert(user);
-        resp.sendRedirect("/login");
+        DaoFactory.getUsersDao().edit(user);
+        req.getSession().removeAttribute("user");
+        req.getSession().setAttribute("user", user);
+        resp.sendRedirect("/profile");
     }
 }
