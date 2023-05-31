@@ -68,12 +68,15 @@ public class MySQLAdsDao implements Ads {
     }
 
     @Override
-    public void editAds(long adId, Ad var) {
+    public void editAds(long adId,Ad ad) {
+
         try {
+
+
             String insertQuery = "UPDATE ads SET (title, description) VALUES (?, ?, ?) WHERE id = ?";
             PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
-            stmt.setString(1, var.getTitle());
-            stmt.setString(2, var.getDescription());
+            stmt.setString(1, ad.getTitle());
+            stmt.setString(2, ad.getDescription());
             stmt.setString(3, String.valueOf(adId));
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
@@ -85,7 +88,23 @@ public class MySQLAdsDao implements Ads {
     }
 
 
+   public Ad getAdById(adId){
+       try {
 
+
+           String insertQuery = "SELECT * ads WHERE id = ?";
+           PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
+           stmt.setString(1, ad.getTitle());
+           stmt.setString(2, ad.getDescription());
+           stmt.setString(3, String.valueOf(adId));
+           stmt.executeUpdate();
+           ResultSet rs = stmt.getGeneratedKeys();
+           rs.next();
+           rs.getLong(1);
+       } catch (SQLException e) {
+           throw new RuntimeException("Error editing ad.", e);
+       }
+   }
 
     private Ad extractAd(ResultSet rs) throws SQLException {
         return new Ad(
