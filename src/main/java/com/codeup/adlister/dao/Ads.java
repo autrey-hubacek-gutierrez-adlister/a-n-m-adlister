@@ -13,5 +13,5 @@ public interface Ads {
 
      void deleteAds(long adId) throws SQLException;
 
-     void editAds(long adId,String title,String description) throws SQLException;
+    void editAds(long adId, Ad var);
 }

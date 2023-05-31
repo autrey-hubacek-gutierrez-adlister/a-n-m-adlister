@@ -17,6 +17,18 @@
             <h2>${ad.title}</h2>
             <p>${ad.description}</p>
         </div>
+        <form action="/delete" method="post">
+            <div class="form-group">
+                <input name="adId" value="${ad.id}" class="form-control" type="hidden">
+                <button>Delete</button>
+            </div>
+        </form>
+        <form action="/ads/edit" method="post">
+            <div class="form-group">
+                <input name="editAdId" value="${ad.id}" class="form-control" type="hidden">
+                <button>Edit</button>
+            </div>
+        </form>
     </c:forEach>
 </div>
 
