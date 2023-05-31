@@ -14,27 +14,22 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet(name = "controllers.EditAdsServlet", urlPatterns = "/edit")
+@WebServlet(name = "controllers.EditAdsServlet", urlPatterns = "/ads/edit")
 public class EditAdsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (req.getSession().getAttribute("user") == null) {
-            resp.sendRedirect("/login");
-            // add a return statement to exit out of the entire method.
-            return;
-        }
-
         req.getRequestDispatcher("/WEB-INF/ads/edit.jsp").forward(req, resp);
+        req.setAttribute("ads", DaoFactory.getAdsDao().all());
 
     }
 
 
-    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Object ads =req.getAttribute("ads");
         String title = req.getParameter("title");
         String description = req.getParameter("description");
-
-        DaoFactory.getAdsDao().editAds((long) Integer.parseInt(req.getParameter("editAdId")),(Ad) req.getAttribute("var"));
-
+        long userId = Long.parseLong(req.getParameter("userId"));
+        DaoFactory.getAdsDao().editAds(Long.parseLong((req.getParameter("editAdId"))));
+        resp.sendRedirect("/ads");
     }
 
 }

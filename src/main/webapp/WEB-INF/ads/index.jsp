@@ -23,7 +23,7 @@
                 <button>Delete</button>
             </div>
         </form>
-        <form action="/edit" method="post">
+        <form action="/ads/edit" method="get">
             <div class="form-group">
                 <input name="editAdId" value="${ad.id}" class="form-control" type="hidden">
                 <button>Edit</button>
