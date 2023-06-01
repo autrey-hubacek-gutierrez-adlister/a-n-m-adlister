@@ -18,10 +18,6 @@ public class DaoFactory {
         }
         return usersDao;
     }
-    public static Users editUserDao() {
-        if (usersDao == null) {
-            usersDao = new MySQLUsersDao(config);
-        }
-        return usersDao;
-    }
+
 }
+
