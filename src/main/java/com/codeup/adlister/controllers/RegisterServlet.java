@@ -4,6 +4,7 @@ import com.codeup.adlister.dao.DaoFactory;
 import com.codeup.adlister.models.User;
 import com.codeup.adlister.util.Password;
 import org.mindrot.jbcrypt.BCrypt;
+import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,20 +33,26 @@ public class RegisterServlet extends HttpServlet {
                 || (!password.equals(passwordConfirmation));
 
         if (inputHasErrors) {
-            response.sendRedirect("/register");
+            response.sendRedirect("/register"
+                    + "?username=" + username
+                    + "&email=" + email);
             return;
         }
 
         // Check if username already exists
         if (DaoFactory.getUsersDao().findByUsername(username) != null) {
-            response.sendRedirect("/register?error=Username already exists");
+            response.sendRedirect("/register?error=Username already exists"
+                    + "&username=" + username
+                    + "&email=" + email);
             return;
         }
 
         // Password validation
         String passwordValidation = validatePassword(password);
         if (!passwordValidation.isEmpty()) {
-            response.sendRedirect("/register?error=" + passwordValidation);
+            response.sendRedirect("/register?error=" + passwordValidation
+                    + "&username=" + username
+                    + "&email=" + email);
             return;
         }
 
@@ -79,5 +86,7 @@ public class RegisterServlet extends HttpServlet {
 
         return "";
     }
-
 }
+
+
+
