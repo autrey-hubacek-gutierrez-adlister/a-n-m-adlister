@@ -23,13 +23,18 @@
             </div>
         </form>
 
-
     <form action="/delete" method="post">
         <div class="form-group">
             <input name="adId" value="${ad.id}" class="form-control" type="hidden">
             <button type="submit">Delete</button>
         </div>
     </form>
-        </c:forEach>
+    </c:forEach>
+
+    <form method="post" action="/deleteUser">
+        <input type="hidden" id="delete" name="deleteUser" value="${sessionScope.user.username}">
+        <input type="submit" class="btn btn-outline-danger" value="Delete Account">
+    </form>
+ 
 </body>
 </html>

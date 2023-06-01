@@ -53,6 +53,11 @@ public class MySQLAdsDao implements Ads {
     }
 
     @Override
+    public void delete(Ad ad) {
+
+    }
+
+    @Override
     public void deleteAds(long adId) throws SQLException {
         try {
             String deleteQuery = "DELETE FROM ads WHERE id = ?";
@@ -102,7 +107,7 @@ public class MySQLAdsDao implements Ads {
 //    }
 
 
-   public Ad getAdById(long adId) {
+    public Ad getAdById(long adId) {
        try {
            String query = "SELECT * FROM ads WHERE id = ?";
            PreparedStatement statement = connection.prepareStatement(query);

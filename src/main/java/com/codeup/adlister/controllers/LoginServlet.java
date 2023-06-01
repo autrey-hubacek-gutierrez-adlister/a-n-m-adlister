@@ -19,6 +19,13 @@ public class LoginServlet extends HttpServlet {
             response.sendRedirect("/profile");
             return;
         }
+
+        String signUpButton = request.getParameter("signup");
+        if (signUpButton != null && signUpButton.equals("true")) {
+            response.sendRedirect("/register");
+            return;
+        }
+
         request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
     }
 
