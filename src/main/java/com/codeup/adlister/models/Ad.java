@@ -21,6 +21,7 @@ public class Ad {
     }
 
 
+
     public long getId() {
         return id;
     }
@@ -41,7 +42,7 @@ public class Ad {
         return title;
     }
 
-    public void setTitle() {
+    public void setTitle(String title) {
         this.title = title;
     }
 
@@ -49,7 +50,7 @@ public class Ad {
         return description;
     }
 
-    public void setDescription() {
+    public void setDescription(String description) {
         this.description = description;
     }
 }
