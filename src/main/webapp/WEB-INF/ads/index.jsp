@@ -16,13 +16,8 @@
         <div class="col-md-6">
             <h2>${ad.title}</h2>
             <p>${ad.description}</p>
+
         </div>
-<%--        <form action="/delete" method="post">--%>
-<%--            <div class="form-group">--%>
-<%--                <input name="adId" value="${ad.id}" class="form-control" type="hidden">--%>
-<%--                <button>Delete</button>--%>
-<%--            </div>--%>
-<%--        </form>--%>
     </c:forEach>
 </div>
 
