@@ -12,6 +12,7 @@
             <li><a href="/logout">Logout</a></li>
             <% } %>
             <li><a href="/search.jsp">Search</a></li>
+
         </ul>
     </div>
 </nav>

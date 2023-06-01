@@ -33,7 +33,7 @@ public class EditAdsServlet extends HttpServlet {
         String title = req.getParameter("title");
         String description = req.getParameter("description");
 
-        DaoFactory.getAdsDao().editAds((long) Integer.parseInt(req.getParameter("editAdId")),(Ad) req.getAttribute("var"));
+        DaoFactory.getAdsDao().editAds((long) Integer.parseInt(req.getParameter("editAdId")));
 
     }
 

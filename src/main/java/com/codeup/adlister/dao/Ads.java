@@ -11,7 +11,9 @@ public interface Ads {
     // insert a new ad and return the new ad's id
     Long insert(Ad ad);
 
-     void deleteAds(long adId) throws SQLException;
+    void deleteAds(long adId) throws SQLException;
 
-    void editAds(long adId, Ad var);
+    void editAds(long adId);
+
+    void delete(Ad ad);
 }
