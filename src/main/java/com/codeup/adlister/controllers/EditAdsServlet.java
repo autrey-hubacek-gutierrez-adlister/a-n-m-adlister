@@ -27,9 +27,11 @@ public class EditAdsServlet extends HttpServlet {
         Object ads =req.getAttribute("ads");
         String title = req.getParameter("title");
         String description = req.getParameter("description");
+
         long userId = Long.parseLong(req.getParameter("userId"));
         DaoFactory.getAdsDao().editAds(Long.parseLong((req.getParameter("editAdId"))));
         resp.sendRedirect("/ads");
+
     }
 
 }

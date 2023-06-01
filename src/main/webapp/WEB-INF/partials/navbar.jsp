@@ -5,9 +5,14 @@
             <a class="navbar-brand" href="/ads">Adlister</a>
         </div>
         <ul class="nav navbar-nav navbar-right">
+            <% if (session.getAttribute("user") == null) { %>
             <li><a href="/login">Login</a></li>
+            <% } %>
+            <% if (session.getAttribute("user") != null) { %>
             <li><a href="/logout">Logout</a></li>
+            <% } %>
+            <li><a href="/search.jsp">Search</a></li>
+
         </ul>
-    </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
+    </div>
 </nav>

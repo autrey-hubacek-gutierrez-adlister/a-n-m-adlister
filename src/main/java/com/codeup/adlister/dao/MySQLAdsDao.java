@@ -52,6 +52,8 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
+
+
     @Override
     public void deleteAds(long adId) throws SQLException {
         try {
@@ -67,16 +69,17 @@ public class MySQLAdsDao implements Ads {
 
     }
 
+
     @Override
     public void editAds(long adId) {
        Ad ad = getAdById(adId);
         try {
-            String updateQuery = "UPDATE ads SET user_id = ?, title = ?, description = ? WHERE id = ?";
-            PreparedStatement stmt = connection.prepareStatement(updateQuery);
-            stmt.setLong(1, ad.getUserId());
-            stmt.setString(2, ad.getTitle());
-            stmt.setString(3, ad.getDescription());
-            stmt.setLong(4, adId);
+
+            String insertQuery = "UPDATE ads SET (title, description) VALUES (?,?) WHERE id = ?";
+            PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
+            stmt.setString(1, ad.getTitle());
+            stmt.setString(2, ad.getDescription());
+            stmt.setString(3, String.valueOf(adId));
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
@@ -87,7 +90,8 @@ public class MySQLAdsDao implements Ads {
     }
 
 
-   public Ad getAdById(long adId) {
+
+    public Ad getAdById(long adId) {
        try {
            String query = "SELECT * FROM ads WHERE id = ?";
            PreparedStatement statement = connection.prepareStatement(query);

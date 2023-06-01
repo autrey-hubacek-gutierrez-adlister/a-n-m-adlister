@@ -11,6 +11,9 @@
     <div class="container">
         <h1>Welcome, ${sessionScope.user.username}!</h1>
     </div>
-
+    <form method="post" action="/deleteUser">
+        <input type="hidden" id="delete" name="deleteUser" value="${sessionScope.user.username}">
+        <input type="submit" class="btn btn-outline-danger" value="Delete Account">
+    </form>
 </body>
 </html>
