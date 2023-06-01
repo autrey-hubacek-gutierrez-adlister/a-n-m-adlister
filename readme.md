@@ -1,7 +1,8 @@
 # Adlister Project
 
-Be able to register an account, view current job openings, create/delete jobs, and save job openings to a profile page.
+An application offers users a seamless experience, allowing them to register an account, log out, and efficiently modify their account details. Additionally, enabling users to effortlessly add, edit, or delete ads to their page.
 
+## Languages
 
 ## Authors
 
