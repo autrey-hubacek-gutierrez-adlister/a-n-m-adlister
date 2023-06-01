@@ -17,7 +17,7 @@ public class MySQLUsersDao implements Users {
                 config.getPassword()
             );
         } catch (SQLException e) {
-            throw new RuntimeException("Error connecting to the database!", e);
+            throw new RuntimeException("Error connecting to the database!");
         }
     }
 
@@ -47,9 +47,55 @@ public class MySQLUsersDao implements Users {
             rs.next();
             return rs.getLong(1);
         } catch (SQLException e) {
-            throw new RuntimeException("Error creating new user", e);
+            throw new RuntimeException("Error creating new user");
         }
     }
+
+    @Override
+    public void delete(User user) {
+        try {
+            String deleteQuery = "DELETE FROM users WHERE id = ?";
+            PreparedStatement stmt = connection.prepareStatement(deleteQuery);
+            stmt.setLong(1, user.getId());
+            stmt.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error deleting user.", e);
+        }
+    }
+
+    public void edit(User user){
+        try{
+            PreparedStatement stmt;
+            String updateQuery;
+            if (user.getPassword() == null){
+                updateQuery = "update users set " +
+                        "username = ?, " +
+                        "email = ? " +
+                        "where id = ?";
+                stmt = connection.prepareStatement(updateQuery, Statement.RETURN_GENERATED_KEYS);
+                stmt.setString(1, user.getUsername());
+                stmt.setString(2, user.getEmail());
+                stmt.setLong(3, user.getId());
+                System.out.println(stmt.toString());
+            }else {
+                updateQuery = "update users set " +
+                        "username = ?, " +
+                        "email = ?, " +
+                        "password = ? " +
+                        "where id = ?";
+                user.setPassword(user.getPassword());
+                stmt = connection.prepareStatement(updateQuery, Statement.RETURN_GENERATED_KEYS);
+                stmt.setString(1, user.getUsername());
+                stmt.setString(2, user.getEmail());
+                stmt.setString(3, user.getPassword());
+                stmt.setLong(4, user.getId());
+            }
+            stmt.executeUpdate();
+        }catch (SQLException e){
+            throw new RuntimeException("Error updating user.", e);
+        }
+    }
+
 
     private User extractUser(ResultSet rs) throws SQLException {
         if (! rs.next()) {
