@@ -3,7 +3,13 @@
 An application offers users a seamless experience, allowing them to register an account, log out, and efficiently modify their account details. Additionally, enabling users to effortlessly add, edit, or delete ads to their page.
 
 ## Languages
-
+- Java
+- Jsp
+- Tomcat Server
+- CSS
+- Bootstrap
+- Javascript
+- MySql
 ## Authors
 
 - [@NicholasHubacek03](https://github.com/NicholasHubacek03)
