@@ -94,7 +94,6 @@ public class MySQLAdsDao implements Ads {
 
 
 
-
     public Ad getAdById(long adId) {
        try {
            String query = "SELECT * FROM ads WHERE id = ?";
