@@ -13,7 +13,7 @@
     <section class="profile-details">
         <div class="details">
             <ul class="user-img-id">
-                <li><span class="dot"></span></li>
+                <li><span class="dot"><img src=“${sessionScope.user.image}” class=“profile-image” alt=“Profile Image”></span></li>
                 <li><span class="user-id">${sessionScope.user.username}</span></li>
                 <li><span class="email">${sessionScope.user.email}</span></li>
             </ul>
@@ -37,10 +37,10 @@
     <c:forEach var="ad" items="${ads}">
     <section class="ads">
         <div class="ads-card">
-            <img class="ad-img" src="../img/placeholder-image.png" width="40px" height="40px">
+            <div width="40px" height="40px" ></div>
             <ul class="ad-info">
             <li><h1 id="ad-title">${ad.title}</h1></li>
-<%--            <li><h4  id="ad-cat">${ad.category}</h4></li>--%>
+            <li><h4  id="ad-cat">${ad.category}</h4></li>
             <li><p id="ad-desc">${ad.description}</p></li>
             </ul>
             <div class="ad-buttons">
@@ -55,7 +55,7 @@
                     </div>
                 </form>
             </div>
-            </div>
+        </div>
     </section>
     </c:forEach>
     </div>

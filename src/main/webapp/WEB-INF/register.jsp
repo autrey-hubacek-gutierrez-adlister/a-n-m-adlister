@@ -14,11 +14,10 @@
             <label for="username">Username</label>
             <input id="username" name="username" class="form-control" type="text" value="${param.username}">
             <div id="usernameAvailability"></div>
-            <button type="button" onclick="checkUsernameAvailability()">Check Username</button>
+            <button type="button" id="avaliability-button" onclick="checkUsernameAvailability()">Check Username</button>
         </div>
         <div class="form-group rounded">
             <label for="email">Email</label>
-            <input id="email" name="email" class="form-control" type="text">
            <input id="email" name="email" class="form-control" type="email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" value="${param.email}">
 
         </div>
@@ -33,8 +32,11 @@
             <label for="confirm_password">Confirm Password</label>
             <input id="confirm_password" name="confirm_password" class="form-control" type="password" required oninput="checkPasswordMatch()" value="${param.confirm_password}">
             <span id="passwordMatchError" style="color: red;"></span>
-       
       </div>
+        <div class=“form-group”>
+            <label for=“image”>Image URL:</label>
+            <input id=“image” name=“image”  class="form-control" type=“text”>
+        </div>
 <%--            <li><label class="form-check-label" for="flexCheckDefault">Agree to terms and conditions</label>--%>
 <%--                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></li>--%>
            <input type="submit" class="submit-button">
@@ -53,6 +55,7 @@
             alert(error);
         }
     </script>
+</div>
 </body>
 <script>
     function checkPasswordMatch() {

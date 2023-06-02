@@ -23,7 +23,7 @@ public class EditUserServlets extends HttpServlet {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
         String passwordConfirmation = req.getParameter("confirmPassword");
-
+        String image = req.getParameter("image");
 
         /* validate input */
         boolean inputHasErrors = username.isEmpty()
@@ -35,9 +35,9 @@ public class EditUserServlets extends HttpServlet {
         }
         User user;
         if(password.isEmpty() || (! password.equals(passwordConfirmation))){
-            user = new User(username, email, password);
+            user = new User(username, email, password,image);
         }else {
-            user = new User(userId,username, email, password);
+            user = new User(userId,username, email, password,image);
         }
 
         DaoFactory.getUsersDao().edit(user);

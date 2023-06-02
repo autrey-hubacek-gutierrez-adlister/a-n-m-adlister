@@ -5,9 +5,23 @@ public class User {
     private String username;
     private String email;
     private String password;
+    private String image;
 
     public User() {}
 
+    public User(long userId, String username, String email, String password, String image) {
+    }
+
+    public User(String username, String email, String password, String image) {
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public User(long id, String username, String email, String password) {
         this.id = id;

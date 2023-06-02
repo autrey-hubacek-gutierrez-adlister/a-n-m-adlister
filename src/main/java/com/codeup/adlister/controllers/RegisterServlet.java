@@ -20,6 +20,7 @@ public class RegisterServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String image = request.getParameter("image");
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
@@ -58,7 +59,7 @@ public class RegisterServlet extends HttpServlet {
 
         // Create and save a new user
         User user = new User(username, email, password);
-
+        user.setImage(image);
         // Hash the password
         String hash = Password.hash(user.getPassword());
         user.setPassword(hash);

@@ -24,10 +24,10 @@
 <c:forEach var="result" items="${searchResults}">
     <section class="ads">
         <div class="ads-card">
-            <img class="ad-img" src="../img/placeholder-image.png" width="40px" height="40px">
+            <div class="ad-img" style="background-image: url('')" width="40px" height="40px">
             <ul class="ad-info">
                 <li><h1 id="ad-title">${result.itemName}</h1></li>
-                    <%--            <li><h4  id="ad-cat">${result.itemCategory}</h4></li>--%>
+                <li><h4  id="ad-cat">${result.itemCategory}</h4></li>
                 <li><p id="ad-desc">${result.itemDescription}</p></li>
             </ul>
         </div>
