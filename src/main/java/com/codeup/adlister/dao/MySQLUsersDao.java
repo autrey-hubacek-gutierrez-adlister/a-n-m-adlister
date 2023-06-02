@@ -12,9 +12,9 @@ public class MySQLUsersDao implements Users {
         try {
             DriverManager.registerDriver(new Driver());
             connection = DriverManager.getConnection(
-                config.getUrl(),
-                config.getUser(),
-                config.getPassword()
+                    config.getUrl(),
+                    config.getUser(),
+                    config.getPassword()
             );
         } catch (SQLException e) {
             throw new RuntimeException("Error connecting to the database!");
@@ -24,7 +24,7 @@ public class MySQLUsersDao implements Users {
 
     @Override
     public User findByUsername(String username) {
-        String query = "SELECT * FROM users WHERE username = ? LIMIT 1";
+        String query = "SELECT * FROM users WHERE username = ? LIMIT 2";
         try {
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setString(1, username);
@@ -36,13 +36,12 @@ public class MySQLUsersDao implements Users {
 
     @Override
     public Long insert(User user) {
-        String query = "INSERT INTO users(username, email, password,image) VALUES (?, ?, ?,?)";
+        String query = "INSERT INTO users(username, email, password) VALUES (?, ?, ?)";
         try {
             PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, user.getUsername());
             stmt.setString(2, user.getEmail());
             stmt.setString(3, user.getPassword());
-            stmt.setString(4,user.getImage());
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
@@ -70,9 +69,9 @@ public class MySQLUsersDao implements Users {
             String updateQuery;
             if (user.getPassword() == null){
                 updateQuery = "update users set " +
-                        "username = ? " +
-                        "image = ? +" +
-                        "WHERE id = ?";
+                        "username = ?, " +
+                        "email = ? " +
+                        "where id = ?";
                 stmt = connection.prepareStatement(updateQuery, Statement.RETURN_GENERATED_KEYS);
                 stmt.setString(1, user.getUsername());
                 stmt.setString(2, user.getEmail());
@@ -81,18 +80,15 @@ public class MySQLUsersDao implements Users {
             }else {
                 updateQuery = "update users set " +
                         "username = ?, " +
-                        "email = ?,"+
-                        "password = ?," +
-                        "image = ?" +
-                        "WHERE id = ?";
+                        "email = ?, " +
+                        "password = ? " +
+                        "where id = ?";
                 user.setPassword(user.getPassword());
                 stmt = connection.prepareStatement(updateQuery, Statement.RETURN_GENERATED_KEYS);
                 stmt.setString(1, user.getUsername());
                 stmt.setString(2, user.getEmail());
                 stmt.setString(3, user.getPassword());
-                stmt.setString(4, user.getImage());
-                stmt.setLong(5, user.getId());
-
+                stmt.setLong(4, user.getId());
             }
             stmt.executeUpdate();
         }catch (SQLException e){
@@ -106,12 +102,10 @@ public class MySQLUsersDao implements Users {
             return null;
         }
         return new User(
-            rs.getLong("id"),
-            rs.getString("username"),
-            rs.getString("email"),
-            rs.getString("password"),
-            rs.getString("image")
-
+                rs.getLong("id"),
+                rs.getString("username"),
+                rs.getString("email"),
+                rs.getString("password")
         );
     }
 
