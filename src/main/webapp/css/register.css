@@ -66,6 +66,11 @@ html,body
 
 }
 
+.form-control input{
+    border-radius: 50px;
+    border: 0px;
+}
+
 .form-group label{
     font-weight: normal;
     color: #75B9BE;

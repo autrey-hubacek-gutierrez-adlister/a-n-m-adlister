@@ -33,10 +33,14 @@
             <input id="confirm_password" name="confirm_password" class="form-control" type="password" required oninput="checkPasswordMatch()" value="${param.confirm_password}">
             <span id="passwordMatchError" style="color: red;"></span>
       </div>
-        <div class=“form-group”>
-            <label for=“image”>Image URL:</label>
-            <input id=“image” name=“image”  class="form-control" type=“text”>
+        <div class="form-group rounded">
+            <label for="image" >Image</label>
+            <input id="image" name="image" class="form-control" type="text">
         </div>
+<%--        <div class=“form-group rounded”>--%>
+<%--            <label for=“image”>Image URL:</label>--%>
+<%--            <input id=“image” name=“image”  class="form-control" type=“text”>--%>
+<%--        </div>--%>
 <%--            <li><label class="form-check-label" for="flexCheckDefault">Agree to terms and conditions</label>--%>
 <%--                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></li>--%>
            <input type="submit" class="submit-button">
