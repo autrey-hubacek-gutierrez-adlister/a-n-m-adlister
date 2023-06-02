@@ -1,0 +1,39 @@
+.query-buttons{
+    display: flex;
+    list-style: none;
+    position: relative;
+    right: 1.5em;
+    justify-content: space-around;
+    margin-top: 3em;
+}
+
+.search-btn{
+    background-color: #75B9BE;
+    color: white;
+    padding: 0.5em 3em;
+    border-radius: 32px;
+    border: 0px;
+}
+input.form-control{
+    width: 50em;
+    position: relative;
+    left: 3em;
+    border-radius: 50px;
+    border: 0px;
+}
+
+.search-ul{
+    justify-content: space-evenly;
+    display: flex;
+    list-style: none;
+    margin-top: 3em;
+    margin-left: -4em;
+}
+
+.text-btn{
+    background-color: white;
+    color: #75B9BE;
+    padding: 0.5em 3em;
+    border-radius: 32px;
+    border: 0px;
+}

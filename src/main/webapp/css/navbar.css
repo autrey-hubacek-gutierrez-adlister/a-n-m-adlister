@@ -1,0 +1,118 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+}
+html,body
+{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background-color: rgba(199, 214, 109, 0.13);
+}
+
+
+.navbar-text{
+    color: white;
+}
+
+.logo{
+    scale: 70%;
+}
+.nav-link{
+    color: white;
+}
+/*.navbar{*/
+/*    height: 10em;*/
+/*}*/
+/*.navbar-brand-footer{*/
+/*    margin-left: 20em;*/
+/*    !*margin-bottom: 3em;*!*/
+/*    !*padding: 10em;*!*/
+/*}*/
+.nav-item{
+    color: white;
+    font-size: 1vw;
+}
+#sign-in-button{
+    background-color: #75B9BE;
+    color: white;
+    border: 0px;
+    border-radius: 32px;
+    padding: 0.5em 2em;
+    margin: 0.5em;
+    /*list-style: none;*/
+    text-decoration: none;
+}
+#logout-button{
+    background-color: #75B9BE;
+    color: white;
+    border: 0px;
+    border-radius: 32px;
+    padding: 0.5em 2em;
+    margin: 0.5em;
+    /*list-style: none;*/
+    text-decoration: none;
+}
+#profile-button{
+    background-color: #75B9BE;
+    color: white;
+    border: 0px;
+    border-radius: 32px;
+    padding: 0.5em 2em;
+    margin: 0.5em;
+    /*list-style: none;*/
+    text-decoration: none;
+}
+
+
+
+
+#profile-button:hover{
+    background-color: white;
+    color: #75B9BE;
+}
+
+#logout-button:hover{
+    background-color: white;
+    color: #75B9BE;
+}
+
+#sign-in-button:hover{
+    background-color: white;
+    color: #75B9BE;
+}
+#sign-up-button{
+    background-color: #75B9BE;
+    color: white;
+    border: 0px;
+    border-radius: 32px;
+    padding: 0.5em 2em;
+    margin: 0.5em;
+}
+#sign-up-button:hover{
+    background-color: white;
+    color: #75B9BE;
+}
+
+
+
+
+
+/*.button-link:hover{*/
+/*    text-decoration: none;*/
+/*    color: white;*/
+
+/*}*/
+
+
+
+
+.nav-link:hover{
+    color: #75B9BE;
+    text-decoration: none;
+
+}

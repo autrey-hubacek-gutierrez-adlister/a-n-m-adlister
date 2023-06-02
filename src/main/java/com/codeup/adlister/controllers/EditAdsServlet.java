@@ -32,10 +32,9 @@ public class EditAdsServlet extends HttpServlet {
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-
         String adId = request.getParameter("editAdId");
         String title = request.getParameter("title");
+        System.out.println(title);
         String description = request.getParameter("description");
         DaoFactory.getAdsDao().editAds(Long.parseLong(adId),title,description);
         response.sendRedirect("/ads");

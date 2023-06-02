@@ -5,36 +5,65 @@
     <jsp:include page="/WEB-INF/partials/head.jsp">
         <jsp:param name="title" value="Your Profile" />
     </jsp:include>
+    <link rel="stylesheet" href="../css/profile.css">
+    <title>${sessionScope.user.username}'s Profile</title>
 </head>
 <body>
     <jsp:include page="/WEB-INF/partials/navbar.jsp" />
+    <section class="profile-details">
+        <div class="details">
+            <ul class="user-img-id">
+                <li><span class="dot"></span></li>
+                <li><span class="user-id">${sessionScope.user.username}</span></li>
+                <li><span class="email">${sessionScope.user.email}</span></li>
+            </ul>
+            <ul class="button-ul">
+                <form method="get" action="/editUser">
+                 <input type="hidden" id="editUser" name="editUser" value="${sessionScope.user.id}">
+                    <li><button class="prof-btn" id="edit-user-info">Edit Profile</button></li>
+                </form>
+                <form method="post" action="/deleteUser">
+                    <input type="hidden" id="deleteUser" name="deleteUser" value="${sessionScope.user.username}">
+                    <input type="submit" class="prof-btn" value="Delete Account">
+                </form>
+            </ul>
+        </div>
+    </section>
+
+
 
     <div class="container">
-        <h1>Welcome, ${sessionScope.user.username}!</h1>
-    </div>
+
     <c:forEach var="ad" items="${ads}">
-        <form action="/edit" method="get">
-        <h2>${ad.title}</h2>
-        <p>${ad.description}</p>
-
-            <div class="form-group">
+    <section class="ads">
+        <div class="ads-card">
+            <img class="ad-img" src="../img/placeholder-image.png" width="40px" height="40px">
+            <ul class="ad-info">
+            <li><h1 id="ad-title">${ad.title}</h1></li>
+<%--            <li><h4  id="ad-cat">${ad.category}</h4></li>--%>
+            <li><p id="ad-desc">${ad.description}</p></li>
+            </ul>
+            <div class="ad-buttons">
+                <form action="/edit" method="get">
                 <input name="editAdId" value="${ad.id}" class="form-control" type="hidden">
-                <button type="submit">Delete</button>
+                <button class="edit-btn" type="submit">Edit</button>
+                </form>
+                <form action="/delete" method="post">
+                    <div class="form-group">
+                        <input name="adId" value="${ad.id}" class="form-control" type="hidden">
+                        <button class="delete-btn" type="submit">Delete</button>
+                    </div>
+                </form>
             </div>
-        </form>
-
-    <form action="/delete" method="post">
-        <div class="form-group">
-            <input name="adId" value="${ad.id}" class="form-control" type="hidden">
-            <button type="submit">Delete</button>
-        </div>
-    </form>
+            </div>
+    </section>
     </c:forEach>
+    </div>
+<%--    <form method="post" action="/deleteUser">--%>
+<%--        <input type="hidden" id="delete" name="deleteUser" value="${sessionScope.user.username}">--%>
+<%--        <input type="submit" class="btn btn-outline-danger" value="Delete Account">--%>
+<%--    </form>--%>
+    <jsp:include page="/WEB-INF/partials/footer.jsp" />
 
-    <form method="post" action="/deleteUser">
-        <input type="hidden" id="delete" name="deleteUser" value="${sessionScope.user.username}">
-        <input type="submit" class="btn btn-outline-danger" value="Delete Account">
-    </form>
- 
 </body>
 </html>
