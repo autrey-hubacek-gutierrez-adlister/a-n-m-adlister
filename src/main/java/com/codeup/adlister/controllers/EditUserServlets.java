@@ -2,6 +2,8 @@ package com.codeup.adlister.controllers;
 
 import com.codeup.adlister.dao.DaoFactory;
 import com.codeup.adlister.models.User;
+import com.codeup.adlister.util.Password;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,12 +35,16 @@ public class EditUserServlets extends HttpServlet {
             resp.sendRedirect("/editUser");
             return;
         }
+
         User user;
         if(password.isEmpty() || (! password.equals(passwordConfirmation))){
             user = new User(username, email, password);
         }else {
             user = new User(userId,username, email, password);
         }
+
+        String hash = Password.hash(user.getPassword());
+        user.setPassword(hash);
 
         DaoFactory.getUsersDao().edit(user);
         req.getSession().removeAttribute("user");

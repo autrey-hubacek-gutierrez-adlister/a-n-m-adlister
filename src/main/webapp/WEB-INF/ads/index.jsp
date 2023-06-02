@@ -34,6 +34,6 @@
     </c:forEach>
 </div>
 <jsp:include page="/WEB-INF/partials/footer.jsp" />
-
+</c:forEach>
 </body>
 </html>

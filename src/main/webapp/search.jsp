@@ -13,12 +13,10 @@
     <title>Item Search</title>
     <link rel="stylesheet" href="css/search.css">
   </head>
-<%--<h1>Search for items</h1>--%>
     <jsp:include page="/WEB-INF/partials/head.jsp">
         <jsp:param name="title" value="Search Ads!" />
     </jsp:include>
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
-<h1>Search for items</h1>
 
 <form action="/search" method="GET">
     <ul class="search-ul">
