@@ -10,6 +10,7 @@
 <body>
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
 
+
 <form action="/login" method="post" class="login-form">
     <div class="form-group rounded">
         <label for="username">Username</label>
@@ -46,5 +47,12 @@
 <%--</div>--%>
 <jsp:include page="/WEB-INF/partials/footer.jsp" />
 
+<div class="container">
+    <h1>Please Log In</h1>
+    <% if (request.getAttribute("errorMessage") != null) { %>
+    <div class="alert alert-<%= request.getAttribute("alertType") %>">
+        <%= request.getAttribute("errorMessage") %>
+    </div>
+    <% } %>
 </body>
 </html>

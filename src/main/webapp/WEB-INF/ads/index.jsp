@@ -13,19 +13,6 @@
 
 <div class="container">
 
-<%--    <c:forEach var="ad" items="${ads}">--%>
-<%--        <div class="col-md-6">--%>
-<%--            <h2>${ad.title}</h2>--%>
-<%--            <p>${ad.description}</p>--%>
-<%--        </div>--%>
-<%--        <form action="/delete" method="post">--%>
-<%--            <div class="form-group">--%>
-<%--                <input name="adId" value="${ad.id}" class="form-control" type="hidden">--%>
-<%--                <button>Delete</button>--%>
-<%--            </div>--%>
-<%--        </form>--%>
-<%--    </c:forEach>--%>
-
     <c:forEach var="ad" items="${ads}">
         <section class="ads">
             <div class="ads-card">
@@ -37,6 +24,13 @@
                 </ul>
             </div>
         </section>
+
+    <c:forEach var="ad" items="${ads}">
+        <div class="col-md-6">
+            <h2>${ad.title}</h2>
+            <p>${ad.description}</p>
+
+        </div>
     </c:forEach>
 </div>
 <jsp:include page="/WEB-INF/partials/footer.jsp" />

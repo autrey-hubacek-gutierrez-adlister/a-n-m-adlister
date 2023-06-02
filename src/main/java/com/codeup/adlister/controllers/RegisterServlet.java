@@ -4,6 +4,7 @@ import com.codeup.adlister.dao.DaoFactory;
 import com.codeup.adlister.models.User;
 import com.codeup.adlister.util.Password;
 import org.mindrot.jbcrypt.BCrypt;
+import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,27 +25,68 @@ public class RegisterServlet extends HttpServlet {
         String password = request.getParameter("password");
         String passwordConfirmation = request.getParameter("confirm_password");
 
-        // validate input
+        // Validate input
         boolean inputHasErrors = username.isEmpty()
-            || email.isEmpty()
-            || password.isEmpty()
-            || (! password.equals(passwordConfirmation));
+                || email.isEmpty()
+                || password.isEmpty()
+                || passwordConfirmation.isEmpty()
+                || (!password.equals(passwordConfirmation));
 
         if (inputHasErrors) {
-            response.sendRedirect("/register");
+            response.sendRedirect("/register"
+                    + "?username=" + username
+                    + "&email=" + email);
             return;
         }
 
-        // create and save a new user
+        // Check if username already exists
+        if (DaoFactory.getUsersDao().findByUsername(username) != null) {
+            response.sendRedirect("/register?error=Username already exists"
+                    + "&username=" + username
+                    + "&email=" + email);
+            return;
+        }
+
+        // Password validation
+        String passwordValidation = validatePassword(password);
+        if (!passwordValidation.isEmpty()) {
+            response.sendRedirect("/register?error=" + passwordValidation
+                    + "&username=" + username
+                    + "&email=" + email);
+            return;
+        }
+
+        // Create and save a new user
         User user = new User(username, email, password);
 
-        // hash the password
-
+        // Hash the password
         String hash = Password.hash(user.getPassword());
-
         user.setPassword(hash);
 
         DaoFactory.getUsersDao().insert(user);
         response.sendRedirect("/login");
     }
+
+    private String validatePassword(String password) {
+        if (password.length() < 4) {
+            return "Password must be at least 4 characters long.";
+        }
+
+        if (!password.matches(".*\\d.*")) {
+            return "Password must contain at least one digit.";
+        }
+
+        if (!password.matches(".*[A-Z].*")) {
+            return "Password must contain at least one uppercase letter.";
+        }
+
+        if (!password.matches(".*[@#$%^&+=].*")) {
+            return "Password must contain at least one special character.";
+        }
+
+        return "";
+    }
 }
+
+
+
