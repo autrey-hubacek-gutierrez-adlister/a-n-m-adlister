@@ -13,17 +13,32 @@
     <jsp:include page="/WEB-INF/partials/head.jsp">
         <jsp:param name="title" value="Search Results!" />
     </jsp:include>
+<link rel="stylesheet" href="css/profile.css">
 </head>
 <body>
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
-<a href="/search.jsp">Back to Search</a>
+<a href="/search.jsp"><button class="back-to-search">Back to Search</button></a>
 
-<h2>Search Result:</h2>
+<%--<h2>Search Result:</h2>--%>
+
 <c:forEach var="result" items="${searchResults}">
-    <p>Item ID: ${result.itemId}<br> Item Category: ${result.itemCategory}<br> Title: ${result.itemName}<br> Description: ${result.itemDescription}</p>
+    <section class="ads">
+        <div class="ads-card">
+            <img class="ad-img" src="../img/placeholder-image.png" width="40px" height="40px">
+            <ul class="ad-info">
+                <li><h1 id="ad-title">${result.itemName}</h1></li>
+                    <%--            <li><h4  id="ad-cat">${result.itemCategory}</h4></li>--%>
+                <li><p id="ad-desc">${result.itemDescription}</p></li>
+            </ul>
+        </div>
+    </section>
 </c:forEach>
+<%--<c:forEach var="result" items="${searchResults}">--%>
+<%--    <p>Item ID: ${result.itemId}<br> Item Category: ${result.itemCategory}<br> Title: ${result.itemName}<br> Description: ${result.itemDescription}</p>--%>
+<%--</c:forEach>--%>
 
 
+<jsp:include page="/WEB-INF/partials/footer.jsp" />
 
 </body>
 </html>

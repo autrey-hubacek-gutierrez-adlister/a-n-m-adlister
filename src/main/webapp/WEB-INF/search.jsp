@@ -28,6 +28,7 @@
 <c:if test="${not empty searchResult}">
     <c:out value="${searchResult}" escapeXml="false" />
 </c:if>
+<jsp:include page="/WEB-INF/partials/footer.jsp" />
 </body>
 </html>
 

@@ -23,7 +23,7 @@ public class DeleteServlet extends HttpServlet {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        resp.sendRedirect("/ads");
+        resp.sendRedirect("/profile");
 
     }
 }
